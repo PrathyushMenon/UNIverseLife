@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        body {
+            background: linear-gradient(135deg, #7bdff2, #b2f7ef);
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        h2 {
+            font-size: 36px;
+            color: #333333;
+            margin-top: 50px;
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+        p {
+            font-size: 20px;
+            color: #666666;
+            margin-top: 20px;
+            line-height: 1.5;
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+        .description {
+            font-size: 20px;
+            color: #444444;
+            margin-top: 30px;
+            animation: slideInFromRight 1s ease-in-out forwards;
+        }
+
+        footer {
+            background-color: #f2f2f2;
+            padding: 20px;
+            text-align: center;
+            margin-top: 50px;
+            animation: slideInFromBottom 1s ease-in-out forwards;
+        }
+
+        @keyframes slideInFromRight {
+            0% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInFromBottom {
+            0% {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+    <h2>Welcome to U<span id="typed-letter"></span></h2>
+    <p style="color: black;">Explore the features of UNIverseLife.</p>
+    <p class="description">University life is a critical period that shapes the future of students, encompassing academic challenges, personal growth, and social interactions. However, students often face difficulties in managing their academic workload, keeping track of their accomplishments, and staying engaged with campus activities. Recognizing these challenges, the UNI-VERSE LIFE application was conceptualized to address these needs by integrating several essential features into a single platform.</p>
+    <p class="description">The UNI-VERSE LIFE application is designed to enhance the university experience for students by offering a comprehensive suite of features that assist in academic tracking, personal development, and campus life engagement. This application serves as a multifaceted tool, aimed at providing students with the resources they need to succeed in their studies, manage their daily activities, and celebrate their achievements.</p>
+    
+    <script>
+        window.onload = function() {
+            var text = "NIverse Life . . .";
+            var index = 0;
+            var typedLetter = document.getElementById('typed-letter');
+            
+            function typeWriter() {
+                if (index < text.length) {
+                    typedLetter.innerHTML += text.charAt(index);
+                    index++;
+                    setTimeout(typeWriter, 300); // Adjust typing speed here (milliseconds)
+                } else {
+                    // Reset index and clear the typedLetter content
+                    index = 0;
+                    typedLetter.innerHTML = "";
+                    // Call typeWriter again after a delay
+                    setTimeout(typeWriter, 700); // Adjust delay between loops (milliseconds)
+                }
+            }
+
+            typeWriter();   
+        };
+    </script>
+{% endblock %}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIverseLife</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        body {
+            background-color: lightblue;
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+
+</head>
+<body>
+    <header>
+        <h1>UNIverseLife</h1>
+        <br>
+        <br>
+        <nav style="padding-bottom: 40px;">
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('marks') }}">Marks</a></li>
+                <li><a href="{{ url_for('view_marks') }}">View Marks</a></li>
+                <li><a href="{{ url_for('achievements') }}">Achievements</a></li>
+                <li><a href="{{ url_for('todo') }}">To-Do List</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+
+    </main>
+</body>
+<footer style="background-color:lightblue;">
+    <marquee behavior="scroll" direction="left">
+        <p>Contact us: bapteam@rvu.edu.in</p>
+    </marquee>
+</footer>
+</html>

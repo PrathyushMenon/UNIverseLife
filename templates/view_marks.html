@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    /* Style for list items */
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    li {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        padding: 10px;
+    }
+
+    /* Style for toggle button */
+    .toggle-button, .action-button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 5px;
+        margin-right: 5px;
+    }
+    .toggle-button:hover, .action-button:hover {
+        background-color: #45a049;
+    }
+
+    /* Style for subject marks */
+    .subject-marks {
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+    }
+</style>
+
+<h2>View Marks</h2>
+<ul>
+    {% for student in students %}
+    <li>
+        <strong>Name:</strong> {{ student.name }}, <strong>Total Marks:</strong> {{ student.total_marks }}, <strong>Result:</strong> {{ student.result }}
+        <button class="toggle-button" data-student="{{ student.id }}">Toggle Marks</button>
+        <div class="subject-marks" id="subject-marks-{{ student.id }}" style="display: none;">
+            <strong>Math:</strong> {{ student.math }}<br>
+            <strong>C:</strong> {{ student.c }}<br>
+            <strong>ESM:</strong> {{ student.esm }}<br>
+            <strong>DSA:</strong> {{ student.dsa }}<br>
+        </div>
+        <button class="action-button delete-button" data-student="{{ student.id }}">Delete</button>
+        <!-- <button class="action-button update-button" data-student="{{ student.id }}">Update</button> -->
+    </li>
+    {% endfor %}
+</ul>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const toggleButtons = document.querySelectorAll('.toggle-button');
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const studentId = this.dataset.student;
+                const marksContainer = document.getElementById(`subject-marks-${studentId}`);
+                marksContainer.style.display = marksContainer.style.display === 'none' ? 'block' : 'none';
+            });
+        });
+
+        const deleteButtons = document.querySelectorAll('.delete-button');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const studentId = this.dataset.student;
+                if (confirm("Are you sure you want to delete this student's marks?")) {
+                    fetch(`/delete_marks/${studentId}`, { method: 'DELETE' })
+                        .then(response => {
+                            if (response.ok) {
+                                location.reload();
+                            } else {
+                                alert('Failed to delete marks!');
+                            }
+                        })
+                        .catch(error => console.error('Error deleting marks:', error));
+                }
+            });
+        });
+
+        const updateButtons = document.querySelectorAll('.update-button');
+        updateButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const studentId = this.dataset.student;
+                // Redirect to update page or show a modal for updating marks
+                // You need to implement the update functionality
+            });
+        });
+    });
+</script>
+{% endblock %}
