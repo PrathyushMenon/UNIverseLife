@@ -1,14 +1,13 @@
 {
-    "functions": {
-      "api": {
-        "runtime": "python3.8",
-        "memory": 1024
-      }
-    },
-    "routes": [
-      { "src": "/static/(.*)", "dest": "/static/$1" },
-      { "src": "/templates/(.*)", "dest": "/templates/$1" },
-      { "src": "/(.*)", "dest": "app.py" }
-    ]
-  }
-  
+  "functions": {
+    "api": {
+      "runtime": "python3.8",
+      "memory": 1024
+    }
+  },
+  "routes": [
+    { "src": "/static/(.*)", "dest": "/static/$1" },
+    { "src": "/templates/(.*)", "dest": "/templates/$1" },
+    { "src": "/(.*)", "dest": "app.py" }
+  ]
+}
